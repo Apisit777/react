@@ -1,9 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NumericFormat } from 'react-number-format';
 import Layout from '../views/Layout';
 import { useStateContext } from "../contexts/ContextProvider";
+import axios from 'axios';
 
 export default function Users() {
+
+    const [dataPGusers, setDataPGusers] = useState([])
+
+    useEffect(() => {
+        async function resApi() {
+            try {
+                const response = await axios.get("http://localhost:8000/api/users")
+                if (response.status === 200) {
+                    setDataPGusers(response.data)
+                }
+                console.log("response", response)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        resApi()
+    }, [])
+
     const {user, token} = useStateContext()
 
     const [number1, setNumber1] = useState("");
@@ -432,6 +451,17 @@ export default function Users() {
                                         </div>
                                     </div> */}
 
+                                    <ul>
+                                        {dataPGusers.map((dataPGuser, i) => (
+                                            <li key={i}>
+                                                {"ID" + ":" + dataPGuser.id + " "}
+                                                {"รหัสพนักงาน" + ":" + dataPGuser.user_code + " "}
+                                                {"ชื่อพนักงาน" + ":" + dataPGuser.user_name + " "}
+                                                {"Position" + ":" + dataPGuser.position + " "}
+                                                {"Status" + ":" + dataPGuser.status + " "}
+                                            </li>
+                                        ))}
+                                    </ul>
                                     <div className="flex justify-center items-center dark:text-[#ff0000]">
                                         <div className="mb-4 md:flex md:justify-between">
                                             <div className="">

@@ -1,13 +1,33 @@
-import React from 'react'
+import  { React, useState, useEffect } from 'react'
 import { useStateContext } from "../contexts/ContextProvider";
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
+import axiosClient from "../axios-client";
+import { Navigate } from "react-router-dom";
 
 const Navbar = () => {
-    const {user, token} = useStateContext()
+    const {user, token, setUser, setToken} = useStateContext()
 
-    // const onLogout = (ev) => {
-    //     ev.preventDefault()
-    // }
+    if (!token) {
+        return <Navigate to="/login" />
+    }
+
+    const onLogout = (ev) => {
+        ev.preventDefault()
+
+        axiosClient.post('/logout')
+            .then(() => {
+                setUser({})
+                setToken(null)
+            })
+    }
+
+    useEffect( () => {
+        axiosClient.get('/user')
+        .then(({data}) => {
+          setUser(data)
+        })
+
+    }, [])
 
     const [darkMode, setDarkMode] = useState(false)
 
@@ -39,11 +59,15 @@ const Navbar = () => {
             <header className="bg-white shadow dark:bg-neutral-800 text-gray-100 flex justify-between md:hidden" data-dev-hint="mobile menu bar">
             </header>
 
-            <div className='flex items-center dark:text-white cursor-pointer pl-5 pr-5 font-bold'>
+            {/* <div className='flex items-center dark:text-white cursor-pointer pl-5 pr-5 font-bold'>
+                {user.name}
+            </div> */}
+        </div>
+
+        <div className="flex items-center ml-auto dark:text-white">
+            <div className="mr-2">
                 {user.name}
             </div>
-        </div>
-        <div className="flex items-center ml-auto dark:text-white">
             <div className="switch mr-2" onClick={() => changeTheme()}>
                 <input type="checkbox" checked={localStorage.theme === "dark"} readOnly />
                 <span className="slider"></span>
@@ -55,15 +79,15 @@ const Navbar = () => {
                 </select> */}
             </div >
             {/* <a href="#" onClick={onLogout} className="btn-logout dark:text-white">Logout</a> */}
-            {/* <button
+            <button
                 className="block w-2/4 content-center select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase shadow-md shadow-[#202020]  dark:shadow-blue-500 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button"
                 data-ripple-light="true"
                 onClick={onLogout}
             >
-              Logout
-            </button> */}
-            <a
+                    Logout
+                </button>
+            {/* <a
                 className="ml-2 mr-4 flex items-center text-gray-500 hover:text-gray-700 focus:text-gray-700"
                 href="#"
                 id="navbarDropdownMenuLink"
@@ -86,7 +110,7 @@ const Navbar = () => {
                 <span className="absolute -mt-2.5 ml-2 rounded-full bg-red-600 px-1.5 py-[1px] text-[0.6rem] text-white">
                     1
                 </span>
-            </a>
+            </a> */}
             <a className="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none" href="#" id="navbarDropdownMenuLink" role="button" data-te-dropdown-toggle-ref="" aria-expanded="false">
                 <img src="https://pp.userapi.com/c849232/v849232026/7cc1c/Nc1O0t3pJvA.jpg" className="rounded-full" style={{height: "40px", width: "40px" }} alt="Avatar" loading="lazy" />
             </a>

@@ -11,7 +11,9 @@ export const ContextProvider = ({ children }) => {
     const [user, setUser] = useState({
       name: 'PG Estated Development'
     });
-    const [token, _setToken] = useState(123);
+    const [token, _setToken] = useState();
+
+    // console.log('token', token);
 
     const setToken = (token) => {
         _setToken(token)

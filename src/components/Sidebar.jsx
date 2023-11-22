@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {  GiHamburgerMenu } from "react-icons/gi";
 import {
     MdOutlineDashboard,
@@ -18,6 +18,8 @@ import {
 
 import { Link, Navigate } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
+// import axiosClient from "../axios-client";
+
 const Sidebar = () => {
 
     // const Menus = [
@@ -124,13 +126,25 @@ const Sidebar = () => {
         { name: 'Logout ', link: '/Logout', icon: MdOutlineSettings, line: true},
     ]
 
-  const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(true);
 
     const {user, token} = useStateContext()
 
     if (!token) {
         return <Navigate to="/login" />
     }
+
+    // const onLogout = (ev) => {
+    //     ev.preventDefault()
+    // }
+
+    // useEffect( () => {
+    //     axiosClient.get('/user')
+    //     .then(({data}) => {
+    //       setUser(data)
+    //     })
+
+    // }, [])
 
     return (
         // <aside className="h-screen flex fixed text-black dark:text-white shadow duration-500">
