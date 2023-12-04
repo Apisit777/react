@@ -1,15 +1,11 @@
-import  { React, useState, useEffect } from 'react'
+import  {  useState, useEffect } from 'react'
 import { useStateContext } from "../contexts/ContextProvider";
 // import { useState, useEffect } from 'react';
 import axiosClient from "../axios-client";
 import { Navigate } from "react-router-dom";
 
 const Navbar = () => {
-    const {user, token, setUser, setToken} = useStateContext()
-
-    if (!token) {
-        return <Navigate to="/login" />
-    }
+    const {user, token, checkToken, setUser, setToken} = useStateContext()
 
     const onLogout = (ev) => {
         ev.preventDefault()
@@ -22,6 +18,10 @@ const Navbar = () => {
     }
 
     useEffect( () => {
+        // if (!checkToken) {
+        if (!token) {
+            return <Navigate to="/login" />
+        }
         axiosClient.get('/user')
         .then(({data}) => {
           setUser(data)
@@ -41,7 +41,7 @@ const Navbar = () => {
     }, [])
 
     const changeTheme = () => {
-        console.log('check')
+        // console.log('check')
         setDarkMode(!darkMode)
 
         if (!darkMode) {
@@ -80,13 +80,13 @@ const Navbar = () => {
             </div >
             {/* <a href="#" onClick={onLogout} className="btn-logout dark:text-white">Logout</a> */}
             <button
-                className="block w-2/4 content-center select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase shadow-md shadow-[#202020]  dark:shadow-blue-500 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                className="block w-2/4 mr-2 ml-2 content-center select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase shadow-md shadow-[#202020]  dark:shadow-blue-500 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button"
                 data-ripple-light="true"
                 onClick={onLogout}
             >
-                    Logout
-                </button>
+                Logout
+            </button>
             {/* <a
                 className="ml-2 mr-4 flex items-center text-gray-500 hover:text-gray-700 focus:text-gray-700"
                 href="#"

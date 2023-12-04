@@ -1,10 +1,10 @@
-import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 // import { Link, Navigate, Outlet } from "react-router-dom";
+import PropTypes from 'prop-types'
 
 const Layout = (props) => {
-  const { children, user } = props;
+  const { children } = props;
 
   return (
     <div className='min-h-screen flex bg-white dark:bg-[#303030] text-black dark:text-white animate-fade-in-down duration-500 shadow'>
@@ -20,5 +20,7 @@ const Layout = (props) => {
     </div>
   )
 }
-
+Layout.propTypes = {
+  children: PropTypes.element
+}
 export default Layout

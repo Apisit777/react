@@ -119,7 +119,7 @@ const Sidebar = () => {
                     },
                 ],
             },
-        { name: 'แอดมิน ', link: '/แอดมิน', icon: MdAccountCircle },
+        { name: 'แอดมิน ', link: '/admin', icon: MdAccountCircle },
         { name: 'ปล่อยเช่า ', link: 'ปล่อยเช่า', icon: BsCalendarCheck  },
         { name: 'บัญชี ', link: 'บัญชี', icon: BsFiles },
         { name: 'บุคคล ', link: '/users', icon: MdOutlineSettings },
@@ -128,8 +128,8 @@ const Sidebar = () => {
 
     const [open, setOpen] = useState(true);
 
-    const {user, token} = useStateContext()
-
+    const {user, token, checkToken} = useStateContext()
+    // if (!checkToken) {
     if (!token) {
         return <Navigate to="/login" />
     }
