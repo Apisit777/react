@@ -5,9 +5,9 @@ import { useStateContext } from "../contexts/ContextProvider";
 export default function GuestLayout() {
   const {token, checkToken} = useStateContext()
   // if (checkToken) {
-    if (token) {
-        return <Navigate to="/" />
-    }
+  //   // if (token) {
+  //       return <Navigate to="/" />
+  //   }
 
     return (
         <div>

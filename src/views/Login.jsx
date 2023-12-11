@@ -4,9 +4,10 @@ import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {  useNavigate ,NavLink      } from "react-router-dom";
 
 export default function Login() {
-
+  const navigate = useNavigate();
     const emailRef = useRef();
     const passwordRef = useRef();
 
@@ -24,12 +25,23 @@ export default function Login() {
         .then(({data}) => {
           setUser(data.user)
           setToken(data.token)
+          navigate("/users");
         })
         .catch(err => {
             const response = err.response;
             if (response && response.status === 422) {
                 if (response.data.errors) {
-                  setErrors(response.data.errors)
+                    setErrors(response.data.errors)
+                    toast.error('Username or Password', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
                 } else {
                     setErrors({
                         email: [response.data.message]
@@ -40,34 +52,10 @@ export default function Login() {
     }
 
     const notify = () => {
-        toast.error('🦄 First Nitification!', {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        });
+
     }
 
     return (
-        // <div className="login-signup-form animated fadeInDown">
-        //     <div className="form">
-        //         <form onSubmit={onSubmit}>
-        //             <input type="email" placeholder="Email"/>
-        //             <input type="password" placeholder="Password"/>
-        //             <button className="btn btn-block">Login</button>
-        //             <p className="message">
-        //                 Not registered?
-        //                 <Link to="/signup">
-        //                     Create an account
-        //                 </Link>
-        //             </p>
-        //         </form>
-        //     </div>
-        // </div>
         <>
           <div>
               {/* <section className="h-screen"> */}
@@ -89,14 +77,14 @@ export default function Login() {
                                         <p className="mb-0 mr-4 text-lg">Sign in with</p>
                                         <div className="text-center border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6">
                                             <div className="text-center">
-                                                <a href="javascript:;" className="inline-block px-8 py-2 text-xs font-bold leading-normal text-center align-middle transition-all ease-in bg-transparent rounded-lg shadow-md cursor-pointer select-none active:-translate-y-px hover:-translate-y-px hover:shadow-xs tracking-tight-rem">
+                                                <Link    to="/users" className="inline-block px-8 py-2 text-xs font-bold leading-normal text-center align-middle transition-all ease-in bg-transparent rounded-lg shadow-md cursor-pointer select-none active:-translate-y-px hover:-translate-y-px hover:shadow-xs tracking-tight-rem">
                                                     <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="social icon" className="w-3/10" style={{height: "35px", width: "35px" }} />
                                                     Github
-                                                </a>
-                                                <a href="javascript:;" className="inline-block px-8 py-2 text-xs font-bold leading-normal text-center align-middle transition-all ease-in bg-transparent rounded-lg shadow-md cursor-pointer select-none active:-translate-y-px hover:-translate-y-px hover:shadow-xs tracking-tight-rem">
+                                                </Link>
+                                                <Link    to="/users" className="inline-block px-8 py-2 text-xs font-bold leading-normal text-center align-middle transition-all ease-in bg-transparent rounded-lg shadow-md cursor-pointer select-none active:-translate-y-px hover:-translate-y-px hover:shadow-xs tracking-tight-rem">
                                                     <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="social icon" className="w-3/10" style={{height: "35px", width: "35px" }} />
                                                     Google
-                                                </a>
+                                                </Link>
                                             </div>
                                         </div>
                                         {/* <button
@@ -229,9 +217,9 @@ export default function Login() {
                                     <label className="mt-px cursor-pointer select-none font-light" htmlFor="checkbox">
                                         <p className="flex items-center font-sans text-sm font-normal leading-normal antialiased">
                                             I agree the
-                                            <a className="font-medium transition-colors hover:text-blue-500" href="#" >
+                                            <Link className="font-medium transition-colors hover:text-blue-500" href="#" >
                                                 &nbsp;Terms and Conditions
-                                            </a>
+                                            </Link>
                                         </p>
                                     </label>
                                 </div>
@@ -247,15 +235,9 @@ export default function Login() {
                                 </button>
                                 <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed antialiased">
                                     Already have an account?
-                                    <a
-                                        className="font-medium text-red-500 transition-colors hover:text-blue-700"
-                                        href="#"
-                                    >
-                                        {/* Sign In */}
                                         <Link to="/signup">
                                             Create an account
                                         </Link>
-                                    </a>
                                 </p>
                                 <span className="mt-4 block font-sans text-xs font-bold text-center">
                                     PG ESTATE DEVELOPMENT CO., LTD. (V1.0.0 © 2023)

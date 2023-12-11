@@ -23,6 +23,11 @@
   padding-bottom: 8px;
   margin-bottom: 32px;
 } */
+
+body {
+  overflow-x: hidden;
+}
+
 form {
   max-width: 80.5%;
   border-radius: 7px;
@@ -339,3 +344,4 @@ table > tbody > tr > td {
         transform: translateY(0);
     }
 }
+

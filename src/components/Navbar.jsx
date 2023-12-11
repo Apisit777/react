@@ -2,25 +2,24 @@ import  {  useState, useEffect } from 'react'
 import { useStateContext } from "../contexts/ContextProvider";
 // import { useState, useEffect } from 'react';
 import axiosClient from "../axios-client";
-import { Navigate } from "react-router-dom";
+import {  useNavigate   } from "react-router-dom";
 
 const Navbar = () => {
-    const {user, token, checkToken, setUser, setToken} = useStateContext()
-
+    const {user, checkToken, setUser, setToken} = useStateContext()
+    const navigate = useNavigate();
     const onLogout = (ev) => {
         ev.preventDefault()
-
         axiosClient.post('/logout')
             .then(() => {
                 setUser({})
                 setToken(null)
+                navigate("/login");
             })
     }
 
     useEffect( () => {
-        // if (!checkToken) {
-        if (!token) {
-            return <Navigate to="/login" />
+        if (!checkToken()) {
+            navigate("/login");
         }
         axiosClient.get('/user')
         .then(({data}) => {

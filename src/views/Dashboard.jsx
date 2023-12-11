@@ -44,6 +44,7 @@ export default function Dashboard() {
             <div className="flex flex-wrap items-center justify-center mt-10">
                 <Doughnut
                     data={{
+                      // loan_debt_code, code
                         labels: ['Red', 'Black',],
                         datasets: [
                             {

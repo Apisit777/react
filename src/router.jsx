@@ -7,6 +7,13 @@ import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
 import Dashboard from "./views/Dashboard";
 import Admin from "./views/Admin";
+import LoanDebtModal from "./views/LoanDebtModal";
+import Opm from "./views/Opm";
+import UsersModal from "./views/UsersModal";
+import axios_1 from "axios"
+axios_1.defaults.baseURL = 'http://localhost:9999/api/loan_debts';
+// import axios_2 from "axios"
+// axios_2.defaults.baseURL = 'http://localhost:9999/api/users';
 
 const router = createBrowserRouter([
     {
@@ -27,8 +34,48 @@ const router = createBrowserRouter([
             },
             {
                 path: '/admin',
-                element: <Admin />
-            }
+                element: <Admin />,
+                loader: async () => {
+                    const {data} = await axios_1.get('');
+                    return data;
+                },
+                children: [
+                    {
+                        path: 'create',
+                        element: <LoanDebtModal />
+                    },
+                    {
+                        path: ':id/edit',
+                        element: <LoanDebtModal />
+                    },
+                    {
+                        path: ':id/delete',
+                        element: <LoanDebtModal />
+                    },
+                ]
+            },
+            // {
+            //     path: '/opm',
+            //     element: <Opm />,
+            //     loader: async () => {
+            //         const {data} = await axios_2.get('');
+            //         return data;
+            //     },
+            //     children: [
+            //         {
+            //             path: 'create',
+            //             element: <UsersModal />
+            //         },
+            //         {
+            //             path: ':id/edit',
+            //             element: <UsersModal />
+            //         },
+            //         {
+            //             path: ':id/delete',
+            //             element: <UsersModal />
+            //         },
+            //     ]
+            // },
         ]
     },
     {

@@ -39,20 +39,21 @@ export default function Users() {
     }, [])
 
     const [number1, setNumber1] = useState({
-        a: 0,
-        b: 0,
-        c: 0,
+        a: '',
+        b: '',
+        c: '',
     });
 
-    const [total, setTotal] = useState( Object.values(number1).reduce((acc,cur)=>{return acc = acc + cur}, 0));
+    const [total, setTotal] = useState( 0);
 
-    console.log(total)
-    // const addTotal = ()=> {
-    //     setTotal( number1 + number2 + number3);
-    // }
-
-    const plusNumber = ()=> {
-        let sum = Object.values(number1).reduce((acc,cur)=>{return acc = acc + cur}, 0)
+    const plusNumber = (curnumber)=> {
+        let sum = Object.values(curnumber).reduce((acc,cur)=>{
+          if(parseInt(cur)){
+            return acc = acc + parseInt(cur)
+          }
+          return acc = acc + 0
+        }, 0)
+        // console.table('total',total);
         setTotal(sum)
         setMultiplyNumber( sum * 0.05 )
     }
@@ -222,12 +223,12 @@ export default function Users() {
 
                                 <label className="m-0 p-0 dark:text-white rounded-sm text-sm text-center grid content-center justify-items-stretch">ภาระหนี้สินเชื้อ</label>
                                 <input value={number1.a}  onChange={e => {
-                                            setNumber1({...number1, a: parseInt(e.target.value)})
-                                            plusNumber()
-                                            originalInterest(e.target.value, 1)
+                                        setNumber1({...number1, a: e.target.value})
+                                        plusNumber({...number1, a: e.target.value})
+                                        // originalInterest(e.target.value, 1)
                                         }}
                                         id=""
-                                        type="number"
+                                        type="text"
                                         className="col-span-1 m-0 p-0 dark:text-white rounded-sm dark:bg-[#303030] text-center focus:border-blue-500" />
                                 {/* Hidden */}
                                 <label className="col-span-2 m-0 p-0 dark:text-white rounded-sm text-sm text-center grid content-center justify-items-stretch">สัญญา</label>
@@ -235,11 +236,11 @@ export default function Users() {
 
                                 <label className="m-0 p-0 dark:text-white rounded-sm text-sm text-center grid content-center justify-items-stretch">ภาระหนี้รถยนต์(ไม่รี)</label>
                                 <input value={number1.b} onChange={e => {
-                                            setNumber1({...number1, b:parseInt(e.target.value)})
-                                            plusNumber()
+                                            setNumber1({...number1, b: e.target.value})
+                                            plusNumber({...number1, b: e.target.value})
                                         }}
                                         id=""
-                                        type="number"
+                                        type="text"
                                         className="col-span-1 m-0 p-0 dark:text-white rounded-sm dark:bg-[#303030] text-center focus:border-blue-500" />
                                 {/* Hidden */}
                                 <label className="col-span-2 m-0 p-0 dark:text-white rounded-sm text-sm text-center grid content-center justify-items-stretch">Dept</label>
@@ -247,11 +248,11 @@ export default function Users() {
 
                                 <label className="m-0 p-0 dark:text-white rounded-sm text-sm text-center grid content-center justify-items-stretch">ภาระหนี้รถยนต์(รี)</label>
                                 <input value={number1.c} onChange={e => {
-                                        setNumber1({...number1, c:parseInt(e.target.value)})
-                                        plusNumber()
-                                       }}
+                                            setNumber1({...number1, c: e.target.value})
+                                            plusNumber({...number1, c: e.target.value})
+                                        }}
                                         id=""
-                                        type="number"
+                                        type="text"
                                         className="col-span-1 m-0 p-0 dark:text-white rounded-sm dark:bg-[#303030] text-center focus:border-blue-500"
                                 />
                                 {/* Hidden */}
@@ -299,7 +300,7 @@ export default function Users() {
                                 <label className="col-span-3 m-0 p-0"></label>
 
                                 <label className="m-0 p-0 dark:text-white rounded-sm text-sm text-center grid content-center justify-items-stretch">ภาระหนี้รวม</label>
-                                <input defaultValue={total.toLocaleString()}
+                                <input value={total.toLocaleString()}
                                        readOnly
                                        className="col-span-1 m-0 p-0 text-[#df3434] rounded-sm dark:bg-[#303030] text-center focus:border-blue-500" />
                                 {/* Hidden */}
@@ -382,7 +383,6 @@ export default function Users() {
                             <ul className="pt-4 mt-10 space-y-2 border-t border-black dark:border-red-500 mb-5"/>
                         </div>
                     </div>
-
                 </div>
                 <div className='pl-6 pr-6'>
                     <div className='flex justify-center items-end mt-5 mb-5 pb-5'>
