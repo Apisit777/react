@@ -68,7 +68,7 @@ const Sidebar = () => {
         { name: 'Logout ', link: '/Logout', icon: MdOutlineSettings, line: true, isOpen: false },
     ]
 
-    console.log(menus.subMenus)
+    // console.log(menus.subMenus)
 
     const [menuItem, setMenuItem] = useState([...menus]);
 

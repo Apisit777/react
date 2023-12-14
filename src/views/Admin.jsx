@@ -102,96 +102,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {  useLoaderData, Outlet } from 'react-router-dom';
 import { Link } from "react-router-dom";
-
-// const data = [
-//   {
-//     name: {
-//       firstName: 'John',
-//       lastName: 'Doe',
-//     },
-//     address: '261 Erdman Ford',
-//     city: 'East Daphne',
-//     state: 'Kentucky',
-//   },
-//   {
-//     name: {
-//       firstName: 'Jane',
-//       lastName: 'Doe',
-//     },
-//     address: '769 Dominic Grove',
-//     city: 'Columbus',
-//     state: 'Ohio',
-//   },
-//   {
-//     name: {
-//       firstName: 'Joe',
-//       lastName: 'Doe',
-//     },
-//     address: '566 Brakus Inlet',
-//     city: 'South Linda',
-//     state: 'West Virginia',
-//   },
-//   {
-//     name: {
-//       firstName: 'Kevin',
-//       lastName: 'Vandy',
-//     },
-//     address: '722 Emie Stream',
-//     city: 'Lincoln',
-//     state: 'Nebraska',
-//   },
-//   {
-//     name: {
-//       firstName: 'Joshua',
-//       lastName: 'Rolluffs',
-//     },
-//     address: '32188 Larkin Turnpike',
-//     city: 'Charleston',
-//     state: 'South Carolina',
-//   },
-//   {
-//     name: {
-//       firstName: 'Joshua',
-//       lastName: 'Rolluffs',
-//     },
-//     address: '32188 Larkin Turnpike',
-//     city: 'Charleston',
-//     state: 'South Carolina',
-//   },
-// ];
+import { TextField, Stack } from '@mui/material/';
+import React, { useState } from 'react'
+import { DatePicker } from '@mui/x-date-pickers';
 
 const Example = () => {
-    // const columns = useMemo(
-    //     () => [
-    //         {
-    //             accessorKey: 'name.firstName',
-    //             header: 'First Name',
-    //             size: 150,
-    //         },
-    //         {
-    //             accessorKey: 'name.lastName',
-    //             header: 'Last Name',
-    //             size: 150,
-    //         },
-    //         {
-    //             accessorKey: 'address',
-    //             header: 'Address',
-    //             size: 200,
-    //         },
-    //         {
-    //             accessorKey: 'city',
-    //             header: 'City',
-    //             size: 150,
-    //         },
-    //         {
-    //             accessorKey: 'state',
-    //             header: 'State',
-    //             size: 150,
-    //         },
-    //     ],
-    //     [],
-    // );
-
     const columns = useMemo(
         () => [
             {
@@ -215,8 +130,12 @@ const Example = () => {
                 size: 150,
             },
             {
-                accessorKey: 'data_entry_date',
+                // accessorKey: 'data_entry_date',
+                accessorFn: (originalRow) => new Date(originalRow.data_entry_date),
+                id: 'data_entry_date',
                 header: 'Data Entry Date',
+                filterVariant: 'date-range',
+                Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
                 size: 150,
             },
             {
@@ -237,28 +156,41 @@ const Example = () => {
             {
                 accessorKey: 'approval_limit',
                 header: 'Approval Limit',
+                format: (value) => value.toLocaleString('en-US'),
+                // Cell: ({ cell }) => (
+                //   cell.getValue().toLocaleString('en-US', {
+                //       style: 'currency',
+                //       currency: 'USD',
+                //       minimumFractionDigits: 2,
+                //       maximumFractionDigits: 2,
+                //     })
+                //   cell.getValue()?.toLocaleString?.('en-US', {
+                //     style: 'currency',
+                //     currency: 'USD',
+                //     minimumFractionDigits: 2,
+                //     maximumFractionDigits: 2,
+                //   })
+                // ),
+                // filterVariant: 'range-slider',
+                // filterFn: 'betweenInclusive',
+                // muiFilterSliderProps: {
+                //   marks: true,
+                //   max: 200_000,
+                //   min: 30_000,
+                //   step: 10_000,
+                //   valueLabelFormat: (value) =>
+                //     value.toLocaleString('en-US', {
+                //       style: 'currency',
+                //       currency: 'USD',
+                //     }),
+                // },
                 size: 100,
             },
-            {
-                accessorKey: 'approval_limit',
-                header: 'Approval Limit',
-                size: 100,
-            },
-            {
-                accessorKey: 'approval_limit',
-                header: 'Approval Limit',
-                size: 100,
-            },
-            {
-                accessorKey: 'approval_limit',
-                header: 'Approval Limit',
-                size: 100,
-            },
-            {
-                accessorKey: 'approval_limit',
-                header: 'Approval Limit',
-                size: 100,
-            },
+            // {
+            //     accessorKey: 'approval_limit',
+            //     header: 'Approval Limit',
+            //     size: 100,
+            // }
         ],
         [],
     );
@@ -321,6 +253,17 @@ const Example = () => {
         // },
     });
 
+    // const [selectedDate, setSelectedDate] = useState(null);
+    // const [dataForm, setDataForm] = React.useState<{
+    //     dateFrom: Date | null,
+    //     dateTo: Date | null,
+    //     selected: String | number
+    // }>({
+    //     dateFrom: new Date(),
+    //     dateTo: new Date(),
+    //     selected: -1
+    // })
+
     return (
         <>
             <Layout>
@@ -331,6 +274,17 @@ const Example = () => {
                              <Button component={Link} to="/admin/create" className="dark:text-white dark:bg-[#3061AF] shadow-md shadow-[#1061e3] dark:shadow-blue-500 duration-500" color="error">
                                  เพิ่มภาระหนี้สินเชื่อ
                              </Button>
+
+                             {/* <Stack sx={{ width: '200px' }}>
+                                <DatePicker
+                                    label="Date picker"
+                                    renderInput={(params) => <TextField {...params} />}
+                                    value={selectedDate}
+                                    onChange={(newValue) => {
+                                        setSelectedDate(newValue)
+                                    }}
+                                />
+                            </Stack> */}
                         </div>
                         {/* <button
                             component={Link} to="/admin/create"
