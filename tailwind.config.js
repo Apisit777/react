@@ -23,7 +23,11 @@ export default {
 
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
-    }
+    },
+    fontSize: {
+        'xs': '0.65rem',
+        'sm': '0.70rem',
+    },
   },
   plugins: [
     {require: "@tailwindcss/line-clamp"},

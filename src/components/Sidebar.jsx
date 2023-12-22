@@ -1,39 +1,36 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import {  GiHamburgerMenu } from "react-icons/gi";
 import {
     MdOutlineDashboard,
     MdAccountCircle,
-    MdAnalytics,
     MdOutlineSettings,
-    MdLogout,
+    MdApartment
   } from 'react-icons/md';
 import {
     BsChevronDown,
     BsChatLeftText,
-    BsCalendarCheck,
     BsFiles,
-    BsServer,
 } from 'react-icons/bs';
 import { FaUserLock } from "react-icons/fa6";
-import { Link, Navigate } from "react-router-dom";
+import { FaPager } from "react-icons/fa";
+import { Link,useLocation  } from "react-router-dom";
 // import { useStateContext } from "../contexts/ContextProvider";
 // import axiosClient from "../axios-client";
 
 const Sidebar = () => {
-
+  const location = useLocation();
     const menus = [
-        { name: 'Dashboard', link: '/dashboard', icon: MdOutlineDashboard, isOpen: false },
-        { name: 'ขาย', link: '', icon: BsChatLeftText , isOpen: false,
+        { name: 'Dashboard', link: '/dashboard', icon: MdOutlineDashboard, isOpen: false, key:'111111' },
+        { name: 'ขาย', link: '', icon: BsChatLeftText , isOpen: false, key:'/sales',
             subMenus: [
                 {
                   title: 'ปิด/ภาระหนี้สินเชื่อ',
-                  link: '/dashboard',
-                  cName: 'sub-nav',
+                  link: '/sales/aaa',
                 },
                 {
                   title: 'ส่งงาน',
-                  link: '/services/services2'
+                  link: '/sales/bbb'
                 },
                 {
                   title: 'ผลงาน',
@@ -41,11 +38,28 @@ const Sidebar = () => {
                 },
             ],
         },
-        { name: 'แอดมิน ', link: '/admin', icon: MdAccountCircle, isOpen: false ,
-
+        { name: 'แอดมิน ', link: '', icon: MdAccountCircle, isOpen: false, key:'/admin',
+            subMenus: [
+                {
+                    title: 'ข้อมูลลูกค้า',
+                    link: '/admin/customer',
+                },
+                {
+                    title: 'เงินเดือนลูกค้า',
+                    link: '/admin/salarycustomer',
+                },
+                {
+                    title: 'ภาระหนี้สินเชื่อ',
+                    link: '/admin/loandebt',
+                },
+                {
+                    title: 'ภาระหนี้รถ',
+                    link: '/admin/cardebt',
+                }
+            ],
         },
 
-        { name: 'ปล่อยเช่า ', link: '', icon: BsCalendarCheck, isOpen: false,
+        { name: 'ปล่อยเช่า ', link: '', icon: MdApartment, isOpen: false, key:'3333',
           subMenus: [
             {
                 title: 'โปรแกรม',
@@ -62,10 +76,11 @@ const Sidebar = () => {
             },
           ],
         },
-        { name: 'บัญชี ', link: '*', icon: BsFiles, isOpen: false },
-        { name: 'บุคคล ', link: '/users', icon: MdOutlineSettings, isOpen: false },
-        { name: 'ผุ้ใช้งาน ', link: '/opm', icon: FaUserLock, isOpen: false },
-        { name: 'Logout ', link: '/Logout', icon: MdOutlineSettings, line: true, isOpen: false },
+        { name: 'บัญชี ', link: '*', icon: BsFiles, isOpen: false, key:'44444'},
+        { name: 'บุคคล ', link: '/users', icon: MdOutlineSettings, isOpen: false, key:'55555' },
+        { name: 'ผุ้ใช้งาน ', link: '/opm', icon: FaUserLock, isOpen: false, key:'77777' },
+        { name: 'Test form', link: '/form', icon: FaPager, isOpen: false, key:'88888' },
+        { name: 'Logout ', link: '/Logout', icon: MdOutlineSettings, line: true, isOpen: false, key:'66666' },
     ]
 
     // console.log(menus.subMenus)
@@ -73,29 +88,29 @@ const Sidebar = () => {
     const [menuItem, setMenuItem] = useState([...menus]);
 
     const [open, setOpen] = useState(true);
-    const [openSubmenu, setOpenSubmenu] = useState(true);
-    const [subMenuOpen, setSubMenuOpen] = useState(false);
-
-    const toggleSidebar = () => {
-        setOpen(!open)
-    }
-
-    const toggleOpenSubmenu = () => {
-        setOpenSubmenu(!openSubmenu)
-    }
 
     const toggleSubMenu = (index) => {
         let a = [...menuItem]
         a.forEach((item,itemindex) => {
-            if(itemindex === index){
-                item.isOpen = !item.isOpen
-            }else{
-                item.isOpen = false
+          if(itemindex === index){
+            item.isOpen = !item.isOpen
+          }else{
+            item.isOpen = false
+          }
+        })
+        setMenuItem([...a])
+    }
+
+    useEffect(() => {
+        let a = [...menuItem]
+        a.forEach((item) => {
+            if(location.pathname.includes(item.key)){
+            item.isOpen = true
             }
         })
         setMenuItem([...a])
-
-    }
+    }, [])
+    // console.log("🚀 ~ file: Sidebar.jsx:95 ~ Sidebar ~ menuItem:", menuItem)
 
     return (
         <aside className="h-screen sticky top-0 flex text-black dark:text-white shadow duration-500 z-50">
@@ -109,7 +124,7 @@ const Sidebar = () => {
                 </div>
                 <div className='mt-2 flex flex-col gap-4 relative'>
                     <ul className="">
-                        {menuItem.map((menu, i) => (
+                        {menuItem?.map((menu, i) => (
                             <>
                                 <li
                                     key={menu.title}
@@ -117,6 +132,9 @@ const Sidebar = () => {
                                 >
                                     <Link to={menu.link}
                                         key={i}
+                                        onClick={() => {
+                                          toggleSubMenu(i)
+                                        }}
                                         className={` ${
                                             menu?.line && open && "border-t border-black py-3 dark:border-blue-500 mx-2 overflow-hidden"
                                             } flex items-center text-sm gap-2 font-medium p-2 hover:bg-[#3061AF]/30 hover:text-[#3061AF] hover:outline-none focus:bg-[#3061AF]/30 focus:text-[#3061AF]
@@ -136,25 +154,25 @@ const Sidebar = () => {
                                         >
                                             {menu?.name}
                                         </h2>
-                                        {menu.subMenus && (
+                                        {menu?.subMenus && (
                                             <BsChevronDown
                                                 size ={20}
-                                                onClick={() => {
-                                                    toggleSubMenu(i)
-                                                }}
-                                                className={`${menu.isOpen && 'transition duration-300 rotate-180'}`}
+                                                // onClick={() => {
+                                                //     toggleSubMenu(i)
+                                                // }}
+                                                className={` mx-auto h-4 w-4 transition-transform ${menu.isOpen && 'rotate-180'}`}
                                             />
                                         )}
                                     </Link>
                                 </li>
-                                {menu.isOpen && open && (
+                                {menu?.isOpen && open && (
                                     <ul>
-                                        {menu.subMenus.map((subMenuItem, idx) => (
+                                        {menu?.subMenus?.map((subMenuItem, idx) => (
                                             <li
                                                 key={idx}
                                                 className="flex bg-[#f4f4f4] dark:bg-[#303030] h-6 cursor-pointer items-center truncate  py-4 pl-[2rem] pr-2 text-[0.78rem] text-gray-700 outline-none transition duration-500 ease-linear hover:bg-[#3061AF]/30 hover:text-[#3061AF] hover:outline-none focus:bg-[#3061AF]/30 focus:text-[#3061AF] focus:outline-none active:bg-primary-400/10 active:text-[#3061AF] active:outline-none data-[te-sidenav-state-active]:text-[#3061AF] data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
                                             >
-                                              <Link to={menu.link}
+                                              <Link to={subMenuItem.link}
                                                     key={i}
                                               >
                                                 {subMenuItem.title}

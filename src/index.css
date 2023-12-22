@@ -28,6 +28,35 @@ body {
   overflow-x: hidden;
 }
 
+.px-8 {
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+
+.py-1 {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+
+.px-16 {
+  padding-left: 0rem;
+  padding-right: 2rem;
+}
+
+.page {
+  width: 21cm;
+  height: 29.7cm;
+  padding: 1cm;
+  margin: 1cm 0;
+  background: white;
+  box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
+  border: 1px #d3d3d3 solid;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* form {
   max-width: 80.5%;
   border-radius: 7px;
@@ -36,7 +65,7 @@ body {
 form {
   /* max-width: 80.5%; */
   border-radius: 7px;
-  padding: 20px 20px;
+  /* padding: 20px 20px; */
 }
 .form {
   width: 100%;

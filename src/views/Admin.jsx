@@ -91,7 +91,6 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from 'material-react-table';
-// import LoanDebtModal from '../views/LoanDebtModal';
 import {
     Box,
     IconButton,
@@ -102,9 +101,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {  useLoaderData, Outlet } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import { TextField, Stack } from '@mui/material/';
-import React, { useState } from 'react'
-import { DatePicker } from '@mui/x-date-pickers';
 
 const Example = () => {
     const columns = useMemo(
@@ -196,18 +192,7 @@ const Example = () => {
     );
 
     const data = useLoaderData();
-    console.log(data);
-
-    // const styles = theme => ({
-    //     root: {
-    //       width: '100%',
-    //       marginTop: theme.spacing.unit * 3,
-    //       overflowX: 'auto',
-    //     },
-    //     table: {
-    //       minWidth: 700,
-    //     },
-    //   });
+    // console.log(data);
 
     const table = useMaterialReactTable({
         // root: {
@@ -241,16 +226,6 @@ const Example = () => {
                 </Tooltip>
             </Box>
         ),
-
-        // editDisplayMode: 'row',
-        // onEditingRowSave: ({ table, values }) => {
-        //     //validate data
-        //     //save data to api
-        //     table.setEditingRow(null); //exit editing mode
-        // },
-        // onEditingRowCancel: () => {
-        //     //clear any validation errors
-        // },
     });
 
     // const [selectedDate, setSelectedDate] = useState(null);
@@ -271,7 +246,7 @@ const Example = () => {
                 <div className='min-h-screen w-full justify-center items-center pr-64 text-xl font-semibold'>
                     <div className='min-h-screen justify-center pt-24'>
                         <div className='pb-4'>
-                             <Button component={Link} to="/admin/create" className="dark:text-white dark:bg-[#3061AF] shadow-md shadow-[#1061e3] dark:shadow-blue-500 duration-500" color="error">
+                             <Button component={Link} to="create" className="dark:text-white dark:bg-[#3061AF] shadow-md shadow-[#1061e3] dark:shadow-blue-500 duration-500" color="error">
                                  เพิ่มภาระหนี้สินเชื่อ
                              </Button>
 
@@ -297,7 +272,6 @@ const Example = () => {
                         </button> */}
                         <MaterialReactTable className="form flex justify-center items-center bg-white dark:bg-[#202020] shadow-md shadow-[#202020] dark:shadow-blue-500 duration-500"
                             style={{ maxWidth: '100%', width: '100%', overflowX: 'auto' }}
-                            // sx={{ minWidth: 650 }} aria-label="simple table"
                             table={table}
                         />
                     </div>
