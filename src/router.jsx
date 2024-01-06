@@ -23,6 +23,8 @@ axios_1.defaults.baseURL = 'http://localhost:8000/api/';
 import { toast } from 'react-toastify';
 import axios_2 from "axios"
 axios_2.defaults.baseURL = 'http://localhost:8000/api/';
+import axios_3 from "axios"
+axios_3.defaults.baseURL = 'http://localhost:8000/api/';
 
 // import axiosClient from "./axios-client";
 
@@ -57,7 +59,7 @@ const router = createBrowserRouter([
                         path: '/admin/customer',
                         element: <Customer />,
                         loader: async () => {
-                            const {data} = await axios_1.get('loan_debts');
+                            const {data} = await axios_3.get('get_detail_user');
                             return data;
                         },
                         children: [
@@ -107,23 +109,12 @@ const router = createBrowserRouter([
                                 path: 'create',
                                 element: <LoanDebtModal />,
                                 action: async ({ request, params }) => {
-                                  // console.log("🚀 ~ file: router.jsx:59 ~ action: ~ params:", params)
                                   const formData = await request.formData();
                                   formData.append('parent', params.id);
                                   // await axios_1.post('/foods', formData)
                                   await axios_1.post('/update_loan_debts', formData)
-                                  toast.error('Username or Password', {
-                                    position: "top-right",
-                                    autoClose: 3000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: "dark",
-                                  });
                                   // return formData;
-                                  return redirect('/admin');
+                                  return redirect('/admin/loandebt');
                                 }
                             },
                             {
@@ -132,17 +123,24 @@ const router = createBrowserRouter([
                                 loader: async ({ params }) => {
                                     const { data } = await axios_1.get(`/edit_loan_debts/${params.id}`);
                                     // console.log(Object.fromEntries(data));
-                                    toast.error('Username or Password', {
-                                        position: "top-right",
-                                        autoClose: 3000,
-                                        hideProgressBar: false,
-                                        closeOnClick: true,
-                                        pauseOnHover: true,
-                                        draggable: true,
-                                        progress: undefined,
-                                        theme: "dark",
-                                    });
                                     return data;
+                                    // return redirect('/admin/loandebt');
+                                },
+                                action: async ({ request, params }) => {
+                                    const formData = await request.formData();
+                                    formData.append('parent', params.id);
+                                    await axios_1.post(`/update_loan_debts/${params.id}`, formData)
+                                    toast.success('Success!', {
+                                      position: "top-right",
+                                      autoClose: 3000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "colored",
+                                    });
+                                    return redirect('/admin/loandebt');
                                 }
                             },
                             {
@@ -188,23 +186,12 @@ const router = createBrowserRouter([
                         path: 'create',
                         element: <LoanDebtModal />,
                         action: async ({ request, params }) => {
-                          // console.log("🚀 ~ file: router.jsx:59 ~ action: ~ params:", params)
                           const formData = await request.formData();
                           formData.append('parent', params.id);
                           // await axios_1.post('/foods', formData)
                           await axios_1.post('/update_loan_debts', formData)
-                          toast.error('Username or Password', {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "dark",
-                          });
-                          return formData;
-                          // return redirect('/admin');
+                          // return formData;
+                          return redirect('/admin');
                         }
                     },
                     {
@@ -213,17 +200,13 @@ const router = createBrowserRouter([
                         loader: async ({ params }) => {
                             const { data } = await axios_1.get(`/edit_loan_debts/${params.id}`);
                             // console.log(Object.fromEntries(data));
-                            toast.error('Username or Password', {
-                                position: "top-right",
-                                autoClose: 3000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "dark",
-                            });
                             return data;
+                        },
+                        action: async ({ request, params }) => {
+                          const formData = await request.formData();
+                          formData.append('parent', params.id);
+                          await axios_1.post('/update_loan_debts', formData)
+                          return redirect('/admin');
                         }
                     },
                     {

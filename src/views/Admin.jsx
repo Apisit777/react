@@ -94,9 +94,10 @@ import {
 import {
     Box,
     IconButton,
-    Tooltip,
+    Tooltip,    
     Button
 } from '@mui/material';
+// import { FaFilePdf } from "react-icons/fa";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {  useLoaderData, Outlet } from 'react-router-dom';
@@ -214,8 +215,13 @@ const Example = () => {
         renderRowActions: ({ row, table }) => (
             <Box sx={{ display: 'flex', gap: '0.5rem', minWidth: 50 }}>
                 {/* header: <p style={{ textAlign: 'center' }}>Actions</p>, */}
+                {/* <Tooltip title="Edit">
+                    <IconButton component={Link} to={`${row.original.id}/edit`} color="error">
+                    <FaFilePdf />
+                    </IconButton>
+                </Tooltip> */}
                 <Tooltip title="Edit">
-                    <IconButton component={Link} to={`${row.original.id}/edit`}>
+                    <IconButton component={Link} to={`${row.original.id}/edit`} color="primary">
                     <EditIcon />
                     </IconButton>
                 </Tooltip>

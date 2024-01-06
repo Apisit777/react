@@ -109,7 +109,7 @@ export default function Users() {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "dark",
+            theme: "colored",
         });
     }
 
@@ -121,20 +121,6 @@ export default function Users() {
                         <div className="form justify-center items-center bg-white dark:bg-[#202020] shadow-md shadow-[#202020] dark:shadow-blue-500 duration-500">
                             <div className="flex justify-center items-center 2xl:text-2xl xl:text-xl lg:text-lg md:text-md sm:text-sm">
                                 <h2 className="inline-block space-y-2 border-b border-black dark:border-blue-500">ประมาณการผ่อนโปรแกรม OPM</h2>
-
-                                <Input
-                                    maxLength={19}
-                                    // value={formatCardNumber(cardNumber)}
-                                    // onChange={(event) => setCardNumber(event.target.value)}
-                                    icon={
-                                        <CreditCardIcon className="absolute left-0 h-4 w-4 text-blue-gray-300" />
-                                    }
-                                    placeholder="0000 0000 0000 0000"
-                                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                    labelProps={{
-                                    className: "before:content-none after:content-none",
-                                    }}
-                                />
 
                                 {/* <input className="row-span-1 col-span-3 m-0 p-0 dark:text-white rounded-sm dark:bg-[#303030] text-center focus:border-blue-500"
                                     icon={
@@ -198,33 +184,10 @@ export default function Users() {
                                 <div className="col-span-2 dark:text-white rounded-sm dark:bg-[#303030]"></div>
                                 <label className="row-span-3 col-span-1 m-0 p-0 dark:text-white rounded-sm text-sm dark:bg-[#303030] text-center grid content-center justify-items-stretch">ค่าพัฒนาทรัพย์</label>
 
-                                <div className="my-3">
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="mb-2 font-medium "
-                                    >
-                                        Card Details
-                                    </Typography>
-
-                                    <Input
-                                        maxLength={19}
-                                        icon={
-                                            <CreditCardIcon className="absolute left-0 h-4 w-4 text-blue-gray-300" />
-                                        }
-                                        placeholder="0000 0000 0000 0000"
-                                        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                        labelProps={{
-                                            className: "before:content-none after:content-none",
-                                        }}
-                                    />
-                                </div>
-
                                 <input className="row-span-3 m-0 p-0 dark:text-white rounded-sm dark:bg-[#303030] text-center focus:border-blue-500 text-xl"
-                                    icon={
-                                        <CreditCardIcon className="absolute left-0 h-4 w-4 text-blue-gray-300" />
-                                    }
-                                    placeholder="" readOnly />
+                                    placeholder=""
+                                    readOnly
+                                />
                                 <div className="col-span-2 dark:text-white rounded-sm dark:bg-[#303030]"></div>
                             </div>
                             <ul className="pt-4 space-y-2 border-t border-black dark:border-blue-500"/>

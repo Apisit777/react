@@ -31,7 +31,6 @@ export default function Login() {
             const response = err.response;
             if (response && response.status === 422) {
                 if (response.data.errors) {
-                    setErrors(response.data.errors)
                     toast.error('Username or Password', {
                         position: "top-right",
                         autoClose: 3000,
@@ -40,13 +39,9 @@ export default function Login() {
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        theme: "dark",
+                        theme: "colored",
                     });
-                } else {
-                    setErrors({
-                        email: [response.data.message]
-                    })
-                }
+                } 
             }
         })
     }
@@ -142,24 +137,7 @@ export default function Login() {
                                     ))}
                                     </div>
                                 } */}
-                                { errors &&
-                                    <ToastContainer
-                                        position="top-right"
-                                        autoClose={3000}
-                                        hideProgressBar={false}
-                                        newestOnTop={false}
-                                        closeOnClick
-                                        rtl={false}
-                                        pauseOnFocusLoss
-                                        draggable
-                                        pauseOnHover
-                                        theme="dark"
-                                    >
-                                        {Object.keys(errors).map(key => (
-                                            <p key={key}>{errors[key][0]}</p>
-                                        ))}
-                                    </ToastContainer>
-                                }
+
                                 <div className="mb-4 flex flex-col gap-6">
                                 <div className="relative h-11 w-full min-w-[200px]">
                                 <input

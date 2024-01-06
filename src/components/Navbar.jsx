@@ -53,7 +53,7 @@ const Navbar = () => {
     }
 
   return (
-    <div className='fixed  flex items-center w-full h-16 px-4 bg-white dark:bg-neutral-800 shadow duration-500 z-1'>
+    <div className='fixed  flex items-center w-full h-16 px-4 bg-white dark:bg-neutral-800 shadow duration-500 z-30'>
         <div className='flex mx-2'>
             <header className="bg-white shadow dark:bg-neutral-800 text-gray-100 flex justify-between md:hidden" data-dev-hint="mobile menu bar">
             </header>

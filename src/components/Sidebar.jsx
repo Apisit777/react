@@ -22,22 +22,6 @@ const Sidebar = () => {
   const location = useLocation();
     const menus = [
         { name: 'Dashboard', link: '/dashboard', icon: MdOutlineDashboard, isOpen: false, key:'111111' },
-        { name: 'ขาย', link: '', icon: BsChatLeftText , isOpen: false, key:'/sales',
-            subMenus: [
-                {
-                  title: 'ปิด/ภาระหนี้สินเชื่อ',
-                  link: '/sales/aaa',
-                },
-                {
-                  title: 'ส่งงาน',
-                  link: '/sales/bbb'
-                },
-                {
-                  title: 'ผลงาน',
-                  link: '/services/services3',
-                },
-            ],
-        },
         { name: 'แอดมิน ', link: '', icon: MdAccountCircle, isOpen: false, key:'/admin',
             subMenus: [
                 {
@@ -58,7 +42,22 @@ const Sidebar = () => {
                 }
             ],
         },
-
+        { name: 'ขาย', link: '', icon: BsChatLeftText , isOpen: false, key:'/sales',
+            subMenus: [
+                {
+                  title: 'ปิด/ภาระหนี้สินเชื่อ',
+                  link: '/sales/aaa',
+                },
+                {
+                  title: 'ส่งงาน',
+                  link: '/sales/bbb'
+                },
+                {
+                  title: 'ผลงาน',
+                  link: '/services/services3',
+                },
+            ],
+        },
         { name: 'ปล่อยเช่า ', link: '', icon: MdApartment, isOpen: false, key:'3333',
           subMenus: [
             {

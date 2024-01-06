@@ -24,6 +24,105 @@
   margin-bottom: 32px;
 } */
 
+.backdrop {
+  position: relative;
+  z-index: 10;
+}
+
+.option {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #F1F1F1;
+  color: #000000;
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.boxtitle {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 30px;
+}
+.arrowselect {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #ff0000;
+  display: inline-block;
+  padding: 3px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.down {
+  transform: rotate(-135deg);
+}
+.boxselect {
+  position: absolute;
+  top: 30;
+}
+.selectactive {
+  width: 100%;
+  position: absolute;
+  top: 30;
+}
+.boxcontentselected {
+  background-color: #FFFFFF;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  padding: 8px;
+  border-color: #000000;
+  border-width: 1px;
+  border-style: solid;
+  overflow-y: scroll;
+}
+.bg-search {
+  /* background-color: #F0F0F0; */
+  /* color: #000000; */
+  width: 100%;
+  height: 30px;
+  padding: 0px;
+  border: none;
+  outline: none;
+}
+.button-select-active {
+  background-color: #b7b6b6;
+  color: #000000 !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.button-select {
+  background-color: transparent;
+  color: #000000 !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.button-select:hover {
+  background-color: #2f199d;
+  color: #FFFFFF !important;
+}
+.nodata {
+  color: #000000;
+}
+
 body {
   overflow-x: hidden;
 }
@@ -44,13 +143,13 @@ body {
 }
 
 .page {
-  width: 21cm;
+  width: 21.5cm;
   height: 29.7cm;
   padding: 1cm;
   margin: 1cm 0;
   background: white;
   box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
-  border: 1px #d3d3d3 solid;
+  /* border: 1px #d3d3d3 solid; */
   position: relative;
   display: flex;
   flex-direction: column;
